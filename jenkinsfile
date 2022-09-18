@@ -31,10 +31,12 @@ stages {
         }
 
 }
+}
 post{
     always{
         slackSend channel:'devops', message:'BUILD COMPLETED'
     }
 }
+
 }
-}
+
