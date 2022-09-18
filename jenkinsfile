@@ -1,42 +1,39 @@
 pipeline{
-    agent any 
-    environment{
-        JAVA_VERSION="11"
-        DEVOPS_BATCH="AUG2022"
+    agent any
+    environment {
+      JAVA_VERSION="11"
+      DEVOPS_BATCH="AUG2022"
     }
-    parameters{
-        choice(name: 'DEPLOYMENT_ENV', 
-        choices: ['UAT1', 'UAT2', 'PREPOD'], 
-        description: 'Select Env for deploy'
-        )
-        string(name: 'DUMMYSTR',
-        description:'Just a dummy value',
-        defaultValue:'Atin')
+    parameters {
+      choice(name: 'DEPLOYMENT_ENV', choices: ['UAT1', 'UAT2', 'PREPROD'], description: 'select env for deploy')
+      string(name: 'DUMMYSTR', description: 'just a dummy value', defaultValue: 'ashwin')
     }
-    triggers { 
-        pollSCM('* * * * *')
-         }
     options {
-         buildDiscarder(logRotator(numToKeepStr: '1')) 
-         }
-stages {
-    stage('checkout'){
-        steps{
+      buildDiscarder logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '2', numToKeepStr: '2')
+    }
+    tools {
+      jdk 'jdk11'
+      maven 'maven'
+    }
+
+    stages {
+      stage('checkout'){
+        steps {
             checkout scm
         }
-    }
-    stage('Compile'){
-        steps{
-            sh'mvn compile'
+      }
+      stage('compile'){
+        steps {
+            sh 'mvn compile'
         }
+      }
 
-}
-}
-post{
-    always{
-        slackSend channel:'devops', message:'BUILD COMPLETED'
+    }
+    post {
+          always {
+              slackSend channel: 'devops', message: 'jenkins file '
+      // One or more steps need to be included within each condition's block.
+      }
+
     }
 }
-
-}
-
