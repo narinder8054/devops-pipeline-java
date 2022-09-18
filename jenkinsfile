@@ -11,7 +11,7 @@ pipeline{
         )
         string(name: 'DUMMYSTR',
         description:'Just a dummy value',
-        defaultvalve:'Atin')
+        defaultValue:'Atin')
     }
     triggers { 
         pollSCM('* * * * *')
