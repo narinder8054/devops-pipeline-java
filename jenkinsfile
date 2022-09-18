@@ -14,7 +14,7 @@ pipeline{
         defaultvalve:'Atin')
     }
     triggers { 
-        pollSCM(* * * * *)
+        pollSCM('* * * * *')
          }
     options {
          buildDiscarder(logRotator(numToKeepStr: '1')) 
