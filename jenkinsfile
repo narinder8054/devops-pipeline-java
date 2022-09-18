@@ -5,8 +5,8 @@ pipeline{
       DEVOPS_BATCH="AUG2022"
     }
     tools {
-      jdk 'jdk11'
-      maven 'maven'
+      jdk 'java'
+      maven 'maven366'
     }
 
     stages {
